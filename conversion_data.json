@@ -1,0 +1,66 @@
+{
+    "conversions": {
+        "Milk": {
+            "Curd": 1.0,
+            "Yogurt": 1.0,
+            "Paneer": 0.18,
+            "Cheese": 0.1,
+            "Cream": 0.1,
+            "Butter": 0.045,
+            "Ghee": 0.042,
+            "SMP": 0.085,
+            "WMP": 0.125,
+            "Whey": 0.9
+        },
+        "Cream": {
+            "Butter": 0.45,
+            "Ghee": 0.4
+        },
+        "Butter": {
+            "Ghee": 0.82
+        },
+        "Curd": {
+            "Yogurt": 1.0,
+            "Lassi": 2.0,
+            "Buttermilk": 2.0,
+            "Butter": 0.035
+        },
+        "Paneer": {
+            "Whey": 0.82
+        },
+        "Cheese": {
+            "Whey": 0.9
+        },
+        "Whey": {
+            "Whey Powder": 0.065,
+            "WPC": 0.025,
+            "Lactose": 0.045
+        },
+        "Yogurt": {
+            "Greek Yogurt": 0.4,
+            "Drinking Yogurt": 1.3,
+            "Frozen Yogurt": 0.98
+        }
+    },
+    "units": {
+        "Milk": "L",
+        "Curd": "kg",
+        "Yogurt": "kg",
+        "Greek Yogurt": "kg",
+        "Lassi": "L",
+        "Buttermilk": "L",
+        "Cream": "kg",
+        "Butter": "kg",
+        "Ghee": "kg",
+        "Paneer": "kg",
+        "Cheese": "kg",
+        "Whey": "L",
+        "Whey Powder": "kg",
+        "WPC": "kg",
+        "Lactose": "kg",
+        "SMP": "kg",
+        "WMP": "kg",
+        "Drinking Yogurt": "L",
+        "Frozen Yogurt": "kg"
+    }
+}
