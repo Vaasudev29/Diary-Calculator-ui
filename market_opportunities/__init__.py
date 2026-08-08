@@ -1,0 +1,1 @@
+"""Market Opportunities domain package."""

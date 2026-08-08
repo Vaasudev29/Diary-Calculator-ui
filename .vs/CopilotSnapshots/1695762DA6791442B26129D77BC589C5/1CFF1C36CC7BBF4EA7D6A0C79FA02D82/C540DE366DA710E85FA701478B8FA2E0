@@ -1,0 +1,215 @@
+﻿"""MetalMind backend — the brain of the application.
+
+What this file does:
+    Reads the fictional sales CSV with pandas, calculates revenue, cost,
+    profit and margin for every record, and serves the results as JSON
+    API endpoints that the React frontend will display.
+
+What data enters it:
+    data/sales_data.csv (fictional demo sales records)
+
+What it produces:
+    JSON responses at /api/health, /api/sales, /api/summary,
+    /api/customers, /api/products, /api/risks and /api/cross-sell
+
+How it connects:
+    The React frontend (localhost:5173) calls these endpoints and draws
+    the dashboard from the JSON answers.
+"""
+
+from pathlib import Path
+
+import pandas as pd
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(title="MetalMind API", version="0.1.0")
+
+# Allow the React dev server (localhost:5173) to call this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# The CSV lives one folder up from backend/, inside data/.
+DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "sales_data.csv"
+
+
+def load_sales():
+    """Read the CSV and add the four business calculation columns.
+
+    revenue              = quantity_tons * selling_price_per_ton
+    cost                 = quantity_tons * cost_per_ton
+    gross_profit         = revenue - cost
+    gross_margin_percent = (gross_profit / revenue) * 100
+    """
+    df = pd.read_csv(DATA_FILE)
+    df["revenue"] = df["quantity_tons"] * df["selling_price_per_ton"]
+    df["cost"] = df["quantity_tons"] * df["cost_per_ton"]
+    df["gross_profit"] = df["revenue"] - df["cost"]
+    df["gross_margin_percent"] = (df["gross_profit"] / df["revenue"]) * 100
+    return df
+
+
+@app.get("/api/health")
+def health():
+    """Simple check so the frontend can confirm the backend is running."""
+    return {"status": "ok", "app": "MetalMind"}
+
+
+@app.get("/api/sales")
+def get_sales():
+    """Return every sales record with its calculated values."""
+    df = load_sales()
+    return {"records": df.to_dict(orient="records"), "count": len(df)}
+
+
+@app.get("/api/summary")
+def get_summary():
+    """Return the big headline numbers for the whole dataset."""
+    df = load_sales()
+    total_revenue = float(df["revenue"].sum())
+    total_profit = float(df["gross_profit"].sum())
+    return {
+        "total_revenue": round(total_revenue, 2),
+        "total_cost": round(float(df["cost"].sum()), 2),
+        "total_profit": round(total_profit, 2),
+        "gross_margin_percent": round(total_profit / total_revenue * 100, 2),
+        "total_quantity_tons": round(float(df["quantity_tons"].sum()), 2),
+        "number_of_customers": int(df["customer"].nunique()),
+        "number_of_products": int(df["product"].nunique()),
+    }
+
+
+def _group_profitability(df, column):
+    """Shared helper: add up revenue/cost/profit per customer or product."""
+    grouped = (
+        df.groupby(column)
+        .agg(
+            quantity_tons=("quantity_tons", "sum"),
+            revenue=("revenue", "sum"),
+            cost=("cost", "sum"),
+            profit=("gross_profit", "sum"),
+        )
+        .reset_index()
+    )
+    grouped["margin_percent"] = (grouped["profit"] / grouped["revenue"]) * 100
+    return grouped.round(2)
+
+
+@app.get("/api/customers")
+def get_customers():
+    """Customer profitability, sorted by revenue (biggest first)."""
+    df = load_sales()
+    customers = _group_profitability(df, "customer").sort_values(
+        "revenue", ascending=False
+    )
+    return {"customers": customers.to_dict(orient="records")}
+
+
+@app.get("/api/products")
+def get_products():
+    """Product profitability, sorted by profit (most profitable first)."""
+    df = load_sales()
+    products = _group_profitability(df, "product").sort_values(
+        "profit", ascending=False
+    )
+    return {"products": products.to_dict(orient="records")}
+
+
+def _risk_level(score):
+    if score >= 70:
+        return "High"
+    if score >= 40:
+        return "Medium"
+    return "Low"
+
+
+@app.get("/api/risks")
+def get_risks():
+    """Simple rule-based customer risk (demo model — no machine learning).
+
+    A customer is at risk when:
+      1. Latest month revenue is 20%+ below their previous month, OR
+      2. Their overall margin is below 5%.
+    """
+    df = load_sales()
+    risks = []
+    for customer, group in df.groupby("customer"):
+        revenue = group["revenue"].sum()
+        margin = group["gross_profit"].sum() / revenue * 100
+
+        # Compare the customer's latest month with the month before it.
+        monthly = group.groupby(group["date"].str[:7])["revenue"].sum().sort_index()
+        decline_pct = None
+        if len(monthly) >= 2 and monthly.iloc[-2] > 0:
+            decline_pct = (monthly.iloc[-1] - monthly.iloc[-2]) / monthly.iloc[-2] * 100
+
+        score = 0
+        reasons = []
+        if decline_pct is not None and decline_pct <= -20:
+            score += 50
+            reasons.append(f"Revenue declined by {abs(decline_pct):.0f}% in the latest month")
+        if margin < 5:
+            score += 40
+            reasons.append(f"Margin is below 5% ({margin:.1f}%)")
+        if not reasons:
+            reasons.append("No risk rules triggered")
+
+        risks.append(
+            {
+                "customer": customer,
+                "risk_score": score,
+                "risk_level": _risk_level(score),
+                "reason": " and ".join(reasons),
+                "revenue": round(revenue, 2),
+                "margin_percent": round(margin, 2),
+            }
+        )
+    risks.sort(key=lambda item: item["risk_score"], reverse=True)
+    return {
+        "risks": risks,
+        "note": "Demo rule-based risk model — not a prediction or machine learning.",
+    }
+
+
+@app.get("/api/cross-sell")
+def get_cross_sell():
+    """Simple rule-based cross-sell ideas (ESTIMATES, not predictions).
+
+    If a customer does not buy a product that is popular overall, we
+    suggest it. The estimated opportunity is:
+        average quantity other customers buy of that product
+        * that product's average selling price.
+    """
+    df = load_sales()
+    # Popularity = total revenue per product, biggest first.
+    popularity = df.groupby("product")["revenue"].sum().sort_values(ascending=False)
+    opportunities = []
+    for customer, group in df.groupby("customer"):
+        owned = set(group["product"].unique())
+        missing = [p for p in popularity.index if p not in owned]
+        for product in missing[:2]:  # suggest at most 2 products per customer
+            others = df[(df["product"] == product) & (df["customer"] != customer)]
+            if others.empty:
+                continue
+            avg_quantity = others["quantity_tons"].mean()
+            avg_price = others["selling_price_per_ton"].mean()
+            opportunities.append(
+                {
+                    "customer": customer,
+                    "recommended_product": product,
+                    "reason": (
+                        f"{customer} does not buy {product}, which is a "
+                        f"popular product across other customers."
+                    ),
+                    "estimated_opportunity": round(avg_quantity * avg_price, 2),
+                }
+            )
+    opportunities.sort(key=lambda item: item["estimated_opportunity"], reverse=True)
+    return {
+        "opportunities": opportunities,
+        "note": "Estimated opportunities only — simple rules, not a forecast.",
+    }
