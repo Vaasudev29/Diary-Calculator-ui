@@ -3,3 +3,4 @@ data/*.db
 .venv/
 .vs/
 __pycache__/
+Dairy_Yield_Chain_Updated.zip
