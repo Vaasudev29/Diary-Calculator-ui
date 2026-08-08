@@ -1,2 +1,5 @@
 __pycache__/
 data/*.db
+.venv/
+.vs/
+__pycache__/
