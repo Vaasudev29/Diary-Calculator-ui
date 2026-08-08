@@ -1,0 +1,41 @@
+date,customer,product,quantity_tons,selling_price_per_ton,cost_per_ton,region,plant
+2025-09-05,Tata Auto,High Strength Steel,420,78000,64000,North,Plant A
+2025-09-12,BuildCorp,Structural Steel,380,62000,50000,North,Plant B
+2025-09-18,Metro Engineering,Standard Steel,150,55000,48000,South,Plant C
+2025-09-22,Alpha Appliances,Galvanized Steel,120,70000,56000,West,Plant D
+2025-09-27,Global Infrastructure,Structural Steel,500,61000,49000,South,Plant B
+2025-10-03,Tata Auto,High Strength Steel,450,78000,64000,North,Plant A
+2025-10-09,XYZ Motors,Standard Steel,300,56000,53500,West,Plant C
+2025-10-14,BuildCorp,Standard Steel,200,55000,47000,North,Plant C
+2025-10-20,Prime Components,Alloy Steel,180,95000,72000,East,Plant A
+2025-10-25,National Construction,Structural Steel,350,60000,52000,South,Plant B
+2025-11-02,Tata Auto,Alloy Steel,150,96000,73000,North,Plant A
+2025-11-08,XYZ Motors,Standard Steel,260,56000,53500,West,Plant C
+2025-11-13,Metro Engineering,Standard Steel,140,55000,48000,South,Plant C
+2025-11-19,Global Infrastructure,Structural Steel,520,61000,49000,South,Plant B
+2025-11-24,Alpha Appliances,Galvanized Steel,110,70000,56000,West,Plant D
+2025-12-01,Tata Auto,High Strength Steel,480,79000,64500,North,Plant A
+2025-12-07,XYZ Motors,Standard Steel,220,56000,53500,West,Plant C
+2025-12-12,BuildCorp,Structural Steel,400,62500,50500,North,Plant B
+2025-12-18,Prime Components,Alloy Steel,190,95000,72000,East,Plant A
+2025-12-23,National Construction,Standard Steel,160,55000,53000,South,Plant C
+2026-01-05,Tata Auto,High Strength Steel,500,79000,64500,North,Plant A
+2026-01-10,XYZ Motors,Standard Steel,180,56000,53500,West,Plant C
+2026-01-15,Global Infrastructure,Structural Steel,540,61500,49500,South,Plant B
+2026-01-21,Metro Engineering,Galvanized Steel,90,70000,58000,South,Plant D
+2026-01-26,BuildCorp,Standard Steel,210,55000,47000,North,Plant C
+2026-02-02,Tata Auto,Alloy Steel,170,96000,73000,North,Plant A
+2026-02-08,XYZ Motors,Standard Steel,140,56000,53500,West,Plant C
+2026-02-13,National Construction,Structural Steel,360,60000,52000,South,Plant B
+2026-02-19,Alpha Appliances,Galvanized Steel,130,70500,56500,West,Plant D
+2026-02-24,Prime Components,Alloy Steel,200,95500,72500,East,Plant A
+2026-03-03,Tata Auto,High Strength Steel,520,79500,65000,North,Plant A
+2026-03-09,XYZ Motors,Standard Steel,100,56000,53500,West,Plant C
+2026-03-14,Global Infrastructure,Structural Steel,560,61500,49500,South,Plant B
+2026-03-20,BuildCorp,Structural Steel,420,62500,50500,North,Plant B
+2026-03-25,Metro Engineering,Standard Steel,130,55000,48000,South,Plant C
+2026-04-02,Tata Auto,High Strength Steel,540,79500,65000,North,Plant A
+2026-04-08,XYZ Motors,Standard Steel,70,56000,53500,West,Plant C
+2026-04-13,National Construction,Standard Steel,150,55000,53000,South,Plant C
+2026-04-18,Prime Components,Alloy Steel,210,95500,72500,East,Plant A
+2026-04-23,Alpha Appliances,Galvanized Steel,125,70500,56500,West,Plant D

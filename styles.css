@@ -1,1 +1,82 @@
-.kpi-card { background-color: #f0f2f6; border-radius: 10px; padding: 20px; text-align: center; } .kpi-value { font-size: 2em; color: #4CAF50; }
+:root {
+  --dairy-navy: #123047;
+  --dairy-teal: #087e8b;
+  --dairy-mist: #f4f8fa;
+}
+
+.stApp {
+  background: var(--dairy-mist);
+}
+
+[data-testid="stSidebar"] {
+  background: var(--dairy-navy);
+}
+
+[data-testid="stSidebar"] * {
+  color: #f7fbfc;
+}
+
+[data-testid="stMetric"] {
+  background: #ffffff;
+  border: 1px solid #dce7eb;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+[data-testid="stMetricLabel"] {
+  color: #41606a;
+}
+
+[data-testid="stMetricValue"] {
+  color: var(--dairy-teal);
+}
+
+.stMarkdown table {
+  border: 1px solid #dce7eb;
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.stMarkdown th,
+.stMarkdown td {
+  padding: 0.65rem 0.85rem;
+}
+
+.stMarkdown th {
+  background: #eaf3f5;
+  color: var(--dairy-navy);
+}
+
+.market-table-wrap {
+  border: 1px solid #dce7eb;
+  border-radius: 12px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.market-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.market-table th,
+.market-table td {
+  border-bottom: 1px solid #e5eef1;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.market-table th {
+  background: #eaf3f5;
+  color: var(--dairy-navy);
+  position: sticky;
+  top: 0;
+}
+
+.market-table tr:nth-child(even) {
+  background: #f9fcfd;
+}

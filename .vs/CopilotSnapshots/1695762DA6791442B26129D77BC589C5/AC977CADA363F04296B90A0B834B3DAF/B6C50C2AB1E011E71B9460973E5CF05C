@@ -1,0 +1,39 @@
+﻿import { useState } from 'react';
+import './App.css';
+import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard';
+import Customers from './pages/Customers';
+
+function App() {
+  const [activePage, setActivePage] = useState('dashboard');
+
+  const renderPage = () => {
+    switch (activePage) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'customers':
+        return <Customers />;
+      case 'products':
+        return <div className="placeholder-page"><h1>Products</h1><p>Coming in Phase 12</p></div>;
+      case 'risks':
+        return <div className="placeholder-page"><h1>Risks</h1><p>Coming in Phase 13</p></div>;
+      case 'cross-sell':
+        return <div className="placeholder-page"><h1>Cross-Sell</h1><p>Coming in Phase 14</p></div>;
+      case 'data':
+        return <div className="placeholder-page"><h1>Data</h1><p>Coming in Phase 15</p></div>;
+      default:
+        return <Dashboard />;
+    }
+  };
+
+  return (
+    <div className="app-container">
+      <Sidebar activePage={activePage} onNavigate={setActivePage} />
+      <div className="main-content">
+        {renderPage()}
+      </div>
+    </div>
+  );
+}
+
+export default App;
