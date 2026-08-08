@@ -1,0 +1,9 @@
+{
+  "products": [
+    {"id": "Milk", "name": "Milk", "category": "dairy", "unit": "L", "default_yield_factor": 1, "cost_per_unit": 40.0},
+    {"id": "Paneer", "name": "Paneer", "category": "dairy", "unit": "kg", "default_yield_factor": 0.18, "cost_per_unit": 350.0},
+    {"id": "Butter", "name": "Butter", "category": "dairy", "unit": "kg", "default_yield_factor": 0.045, "cost_per_unit": 500.0},
+    {"id": "Cheese", "name": "Cheese", "category": "dairy", "unit": "kg", "default_yield_factor": 0.1, "cost_per_unit": 450.0},
+    {"id": "Whey", "name": "Whey", "category": "byproduct", "unit": "L", "default_yield_factor": 0.9, "cost_per_unit": 8.0}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "history": [
+    {
+      "type": "cheese_production",
+      "inputs": {
+        "feed_milk_type": "buffalo",
+        "batch_size": 1000.0,
+        "target_moisture": 45.0
+      },
+      "result_summary": {
+        "cheese_mass_kg": 153.1818,
+        "net_total_cost": 39696.5
+      },
+      "timestamp": "2026-08-01T13:08:23.789229"
+    }
+  ]
+}

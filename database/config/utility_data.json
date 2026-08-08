@@ -1,0 +1,6 @@
+{
+  "utilities": [
+    {"name": "Electricity", "unit": "kWh", "cost_per_unit": 0.12, "consumption_per_batch": 50},
+    {"name": "Steam", "unit": "kg", "cost_per_unit": 0.03, "consumption_per_batch": 100}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "milk_types": {
+    "cow": {"fat_pct": 3.5, "snf_pct": 8.6, "protein_pct": 3.2, "lactose_pct": 4.8, "density": 1.03},
+    "buffalo": {"fat_pct": 6.5, "snf_pct": 9.0, "protein_pct": 4.0, "lactose_pct": 4.5, "density": 1.04},
+    "standard": {"fat_pct": 4.0, "snf_pct": 8.7, "protein_pct": 3.4, "lactose_pct": 4.7, "density": 1.03}
+  }
+}

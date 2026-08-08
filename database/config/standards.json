@@ -1,0 +1,36 @@
+{
+  "paneer": {
+    "coagulation_yield_factor": 0.18,
+    "whey_loss_pct": 0.82
+  },
+  "cheese": {
+    "coagulation_yield_factor": 0.10,
+    "whey_loss_pct": 0.9
+  },
+  "cheese_detailed": {
+    "protein_retention": 0.95,
+    "fat_retention": 0.95,
+    "lactose_retention": 0.1,
+    "other_snf_retention": 0.25,
+    "default_moisture_pct": 45.0,
+    "salt_uptake_pct": 1.2
+  },
+  "whey_valuation": {
+    "price_per_kg_solid": 20.0,
+    "price_per_kg_protein": 120.0,
+    "price_per_kg_lactose": 5.0,
+    "price_per_kg_other": 10.0
+  },
+  "whey_processing": {
+    "enabled": true,
+    "processing_cost_per_kg_solid": 5.0,
+    "processing_cost_per_liter": 0.5,
+    "fixed_cost_per_batch": 10.0
+  },
+  "butter": {
+    "butterfat_extraction": 0.045
+  },
+  "cream_fat_pct": 40.0,
+  "skim_fat_pct": 0.5,
+  "notes": "Standard process constants; extend per product/process as needed"
+}
